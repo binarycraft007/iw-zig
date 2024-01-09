@@ -20,8 +20,8 @@
             .hash = "1220c5442f34cb8f4fe3645bb45c4f611c47c485e967db85ed4b794c4622fe5269c5",
         },
         .libnl_tiny = .{
-            .url = "git+https://github.com/binarycraft007/libnl-tiny#7dda7e8dc2faf3fca6927ac44e8df36c66957d6a",
-            .hash = "1220fb2ce066cc131113272f1a5eac583563af60233145f84e04080b82621a0620bf",
+            .url = "git+https://github.com/binarycraft007/libnl-tiny#2d6deaed32b177e65f342690c0e8972a5e499f7a",
+            .hash = "1220ca406cb72780db4cedaddea4d5b7af19d0193c9ca48355b69df599389a414ce7",
         },
     },
     .paths = .{

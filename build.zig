@@ -81,7 +81,6 @@ fn generateFiles(b: *std.Build, path: std.Build.LazyPath) !GeneratedFiles {
     var stream = std.io.fixedBufferStream(nl80211_h[start.?..end.?]);
     while (try stream.reader().readUntilDelimiterOrEof(&buf, '\n')) |line| {
         const trimmed = std.mem.trimLeft(u8, line, "\t");
-        const sub_start = std.mem.indexOf(u8, trimmed, "NL80211_CMD_");
         const sub_end = std.mem.indexOf(u8, trimmed, ",");
         if (std.mem.containsAtLeast(u8, line, 1, " = ")) continue;
         if (std.mem.containsAtLeast(u8, line, 1, "reserved")) continue;
@@ -92,7 +91,11 @@ fn generateFiles(b: *std.Build, path: std.Build.LazyPath) !GeneratedFiles {
                 "]",
                 " = ",
                 "\"",
-                trimmed[sub_start.?..sub_end.?],
+            }));
+            for (trimmed["NL80211_CMD_".len..sub_end.?]) |c| {
+                try commands.append(std.ascii.toLower(c));
+            }
+            try commands.appendSlice(try std.mem.concat(b.allocator, u8, &.{
                 "\",",
                 "\n",
             }));
