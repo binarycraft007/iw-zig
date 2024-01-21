@@ -11,10 +11,11 @@ pub fn build(b: *std.Build) !void {
         .optimize = optimize,
     });
     exe.link_gc_sections = false;
-    exe.root_module.addImport("nl", b.dependency("libnl_tiny", .{
+    exe.root_module.addCMacro("_GNU_SOURCE", "");
+    exe.root_module.linkLibrary(b.dependency("libnl_tiny", .{
         .target = target,
         .optimize = optimize,
-    }).module("nl"));
+    }).artifact("nl-tiny"));
     inline for (iw_src_files) |src| {
         exe.addCSourceFile(.{
             .file = iw_dep.path(src),
